@@ -1,5 +1,27 @@
 # Changelog
 
+## 2026-04-18 — Foundational AI Papers: Attention, BERT, GPT-3, Foundation Models, InstructGPT
+
+### Added (Sources)
+- `processed/1706.03762v7.pdf` — Attention Is All You Need (Vaswani et al., 2017)
+- `processed/1810.04805v2.pdf` — BERT: Pre-training of Deep Bidirectional Transformers (Devlin et al., 2018)
+- `processed/2005.14165v4.pdf` — Language Models are Few-Shot Learners / GPT-3 (Brown et al., 2020)
+- `processed/2108.07258v3.pdf` — On the Opportunities and Risks of Foundation Models (Bommasani et al., 2021)
+- `processed/2203.02155v1.pdf` — Training language models to follow instructions / InstructGPT (Ouyang et al., 2022)
+
+### Added (Wiki Pages)
+- `ai/attention-mechanism.md` — Scaled dot-product attention formula, multi-head attention (h=8), sinusoidal positional encoding, encoder-decoder architecture, training results (28.4 BLEU EN-DE)
+- `ai/bert.md` — Bidirectional Transformer encoder, BERT_BASE (110M) / BERT_LARGE (340M), MLM+NSP pre-training, GLUE 80.5%, fine-tuning paradigm
+- `ai/masked-language-modeling.md` — MLM objective detail: 80/10/10 masking strategy, pre-training/fine-tuning mismatch, CLM comparison, SpanBERT/ELECTRA variants
+- `ai/gpt-3.md` — 175B autoregressive LM, training data (499B tokens), zero/one/few-shot paradigms, benchmark results, data contamination discussion
+- `ai/foundation-models.md` — Definition of foundation models, emergence and homogenization properties, domain applications, systemic risk analysis
+- `ai/instructgpt.md` — SFT→RM→PPO pipeline with exact dataset sizes, 1.3B > 175B GPT-3 on human preference, alignment tax, PPO-ptx fix, hallucination reduction
+
+### Updated
+- `INDEX.md` — Added 5 new source papers; added "Foundational AI Papers" section with 6 new pages; added cross-paper themes for architecture evolution, scale vs alignment, and foundation model risks
+
+---
+
 ## 2026-04-18 — Wiki Maintenance Pass: Link Audit, New Pages, and BROKENLINK Log
 
 ### Added

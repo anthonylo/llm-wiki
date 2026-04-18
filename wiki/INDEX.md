@@ -7,6 +7,11 @@ Knowledge base from ingested papers and handbooks. Last updated: 2026-04-18.
 | File | Title | Year |
 |------|-------|------|
 | `0912.1838v1.pdf` | A Brief History of Context | 2009 |
+| `1706.03762v7.pdf` | Attention Is All You Need | 2017 |
+| `1810.04805v2.pdf` | BERT: Pre-training of Deep Bidirectional Transformers | 2018 |
+| `2005.14165v4.pdf` | Language Models are Few-Shot Learners (GPT-3) | 2020 |
+| `2108.07258v3.pdf` | On the Opportunities and Risks of Foundation Models | 2021 |
+| `2203.02155v1.pdf` | Training language models to follow instructions with human feedback (InstructGPT) | 2022 |
 | `2307.06435v10.pdf` | A Comprehensive Overview of Large Language Models | 2023 |
 | `2312.10997v5.pdf` | Retrieval-Augmented Generation for Large Language Models: A Survey | 2023 |
 | `2503.23278v3.pdf` | Model Context Protocol: Landscape, Security Threats, and Future Research Directions | 2025 |
@@ -19,6 +24,14 @@ Knowledge base from ingested papers and handbooks. Last updated: 2026-04-18.
 
 ### Context & Foundations (`wiki/ai/`)
 - [[context]] — Formal context theory (Wan 2009): typed dimension-value pairs, Lucx language, McCarthy's ist-predicate
+
+### Foundational AI Papers (`wiki/ai/`)
+- [[attention-mechanism]] — Attention Is All You Need (Vaswani 2017): scaled dot-product attention, multi-head attention, Transformer architecture
+- [[bert]] — BERT (Devlin 2018): bidirectional pre-training, MLM+NSP, BERT_BASE/LARGE specs, GLUE results
+- [[masked-language-modeling]] — MLM objective: 80/10/10 masking strategy, pre-training/fine-tuning mismatch
+- [[gpt-3]] — GPT-3 (Brown 2020): 175B params, in-context learning, zero/one/few-shot benchmarks
+- [[foundation-models]] — Foundation Models (Bommasani 2021): definition, emergence, homogenization, systemic risk
+- [[instructgpt]] — InstructGPT (Ouyang 2022): SFT→RM→PPO pipeline, alignment tax, 1.3B > 175B
 
 ### Large Language Models (`wiki/ai/`)
 - [[large-language-models]] — LLM overview: architecture families, capabilities, limitations
@@ -126,3 +139,12 @@ See `BROKENLINK.md` for links that appeared in pages but could not be resolved t
 
 ### Scaling and AGI
 [[scaling-laws]] predict smooth loss improvement. [[emergent-abilities]] suggest discontinuous jumps. The [[agi-definition]] shows MS=0% even after GPT-4→GPT-5 scaling — suggesting architectural innovation, not just scaling, is needed for AGI.
+
+### Architecture Evolution: Encoder-Decoder → Encoder-Only → Decoder-Only
+[[attention-mechanism]] (Vaswani 2017) introduced encoder-decoder Transformers. [[bert]] split off the encoder for understanding. [[gpt-3]] scaled decoder-only for generation. The field converged on decoder-only for frontier LLMs.
+
+### Scale vs Alignment
+[[gpt-3]] (175B) is outperformed by [[instructgpt]] (1.3B) on human preference. RLHF alignment ([[rlhf-and-alignment]]) changes the metric from "statistically likely text" to "human-preferred response" — a more impactful lever than scaling.
+
+### Foundation Model Risks
+[[foundation-models]] (Bommasani) warns that as all applications converge on a few models, failures homogenize. [[hallucination]], [[mcp-security-threats]], and the alignment tax ([[instructgpt]]) are concrete failure modes propagated at scale.
