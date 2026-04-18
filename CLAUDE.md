@@ -131,6 +131,8 @@ wiki_engine/
 
 ## Wiki Maintenance
 
+**Always commit when done.** After any wiki work — ingesting a new document, editing pages, fixing links, or any other change — always finish with a git commit. Never leave the working tree dirty.
+
 After **any** wiki page is added, edited, or deleted, perform these steps before committing:
 
 ### 1. Update INDEX.md
@@ -190,4 +192,9 @@ The pipeline does this automatically. When working manually, it must be done exp
 
 ### 7. Commit
 
-Stage all changes and commit with a descriptive message covering the maintenance actions taken.
+Stage all changes and commit with a descriptive message covering the maintenance actions taken. This is **mandatory** — always end every session with a clean working tree.
+
+```bash
+git add -A
+git commit -m "feat/fix/chore: description of what was done"
+```
