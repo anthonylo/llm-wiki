@@ -17,6 +17,7 @@ dependencies = [
     "pydantic-settings>=2.3.0",
     "python-dotenv>=1.0.0",
     "rich>=13.7.0",
+    "pdfplumber>=0.11.9",
 ]
 
 [project.scripts]
@@ -34,5 +35,6 @@ testpaths = ["tests"]
 
 [dependency-groups]
 dev = [
+    "fpdf2>=2.8.7",
     "pytest>=9.0.3",
 ]

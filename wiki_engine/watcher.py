@@ -11,7 +11,7 @@ from wiki_engine import pipeline
 
 console = Console()
 
-SUPPORTED_EXTENSIONS = {".csv", ".tsv", ".xlsx", ".xls", ".json"}
+SUPPORTED_EXTENSIONS = {".csv", ".tsv", ".xlsx", ".xls", ".json", ".pdf"}
 
 
 class InboxHandler(FileSystemEventHandler):

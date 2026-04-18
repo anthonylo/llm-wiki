@@ -32,3 +32,12 @@ def sample_xlsx(fixtures_dir) -> Path:
         import subprocess, sys
         subprocess.run([sys.executable, str(Path(__file__).parent / "create_fixtures.py")], check=True)
     return xlsx_path
+
+
+@pytest.fixture
+def sample_pdf(fixtures_dir) -> Path:
+    pdf_path = fixtures_dir / "sample.pdf"
+    if not pdf_path.exists():
+        import subprocess, sys
+        subprocess.run([sys.executable, str(Path(__file__).parent / "create_fixtures.py")], check=True)
+    return pdf_path

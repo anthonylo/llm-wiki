@@ -4,6 +4,7 @@ from .base import IngestAdapter
 from .csv_adapter import CSVAdapter
 from .excel_adapter import ExcelAdapter
 from .json_adapter import JSONAdapter
+from .pdf_adapter import PDFAdapter
 
 
 def get_adapter(file_path: Path) -> IngestAdapter:
@@ -15,8 +16,10 @@ def get_adapter(file_path: Path) -> IngestAdapter:
         return ExcelAdapter(file_path)
     elif suffix == ".json":
         return JSONAdapter(file_path)
+    elif suffix == ".pdf":
+        return PDFAdapter(file_path)
     else:
         raise ValueError(f"Unsupported file type: {suffix}")
 
 
-__all__ = ["get_adapter", "IngestAdapter", "CSVAdapter", "ExcelAdapter", "JSONAdapter"]
+__all__ = ["get_adapter", "IngestAdapter", "CSVAdapter", "ExcelAdapter", "JSONAdapter", "PDFAdapter"]

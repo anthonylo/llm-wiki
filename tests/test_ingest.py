@@ -101,7 +101,7 @@ class TestGetAdapter:
         assert isinstance(adapter, JSONAdapter)
 
     def test_unsupported_raises(self, tmp_path):
-        bad_file = tmp_path / "test.pdf"
+        bad_file = tmp_path / "test.parquet"
         bad_file.touch()
         with pytest.raises(ValueError, match="Unsupported"):
             get_adapter(bad_file)
