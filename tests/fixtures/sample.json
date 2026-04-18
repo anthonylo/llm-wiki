@@ -1,0 +1,12 @@
+{
+  "team": [
+    {"name": "Alice", "role": "Engineer", "level": "Senior"},
+    {"name": "Bob", "role": "Designer", "level": "Mid"},
+    {"name": "Carol", "role": "PM", "level": "Senior"}
+  ],
+  "project": {
+    "name": "Phoenix",
+    "status": "active",
+    "deadline": "2026-06-30"
+  }
+}
