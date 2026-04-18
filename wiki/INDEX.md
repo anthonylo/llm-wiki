@@ -4,19 +4,39 @@ Knowledge base from ingested papers and handbooks. Last updated: 2026-04-18.
 
 ## Sources
 
-| File | Title | Year |
-|------|-------|------|
-| `0912.1838v1.pdf` | A Brief History of Context | 2009 |
-| `1706.03762v7.pdf` | Attention Is All You Need | 2017 |
-| `1810.04805v2.pdf` | BERT: Pre-training of Deep Bidirectional Transformers | 2018 |
-| `2005.14165v4.pdf` | Language Models are Few-Shot Learners (GPT-3) | 2020 |
-| `2108.07258v3.pdf` | On the Opportunities and Risks of Foundation Models | 2021 |
-| `2203.02155v1.pdf` | Training language models to follow instructions with human feedback (InstructGPT) | 2022 |
-| `2307.06435v10.pdf` | A Comprehensive Overview of Large Language Models | 2023 |
-| `2312.10997v5.pdf` | Retrieval-Augmented Generation for Large Language Models: A Survey | 2023 |
-| `2503.23278v3.pdf` | Model Context Protocol: Landscape, Security Threats, and Future Research Directions | 2025 |
-| `2510.18212v3.pdf` | A Definition of AGI | 2025 |
-| `VikingMalt_BeerMaltHandbook_Online-1.pdf` | Viking Malt Beer & Malt Handbook | 2024 |
+| File                                       | Title                                                                               | Year |
+| ------------------------------------------ | ----------------------------------------------------------------------------------- | ---- |
+| `0912.1838v1.pdf`                          | A Brief History of Context                                                          | 2009 |
+| `1706.03762v7.pdf`                         | Attention Is All You Need                                                           | 2017 |
+| `1810.04805v2.pdf`                         | BERT: Pre-training of Deep Bidirectional Transformers                               | 2018 |
+| `2005.14165v4.pdf`                         | Language Models are Few-Shot Learners (GPT-3)                                       | 2020 |
+| `2108.07258v3.pdf`                         | On the Opportunities and Risks of Foundation Models                                 | 2021 |
+| `2203.02155v1.pdf`                         | Training language models to follow instructions with human feedback (InstructGPT)   | 2022 |
+| `2307.06435v10.pdf`                        | A Comprehensive Overview of Large Language Models                                   | 2023 |
+| `2312.10997v5.pdf`                         | Retrieval-Augmented Generation for Large Language Models: A Survey                  | 2023 |
+| `2503.23278v3.pdf`                         | Model Context Protocol: Landscape, Security Threats, and Future Research Directions | 2025 |
+| `2510.18212v3.pdf`                         | A Definition of AGI                                                                 | 2025 |
+| `VikingMalt_BeerMaltHandbook_Online-1.pdf` | Viking Malt Beer & Malt Handbook                                                    | 2024 |
+
+---
+
+## Source → Pages Map
+
+Which wiki pages were generated from each source document. Update this table whenever a new page is added or a source is ingested.
+
+| Source | Wiki Pages |
+|--------|-----------|
+| `0912.1838v1.pdf` | [[context]] |
+| `1706.03762v7.pdf` | [[attention-mechanism]] |
+| `1810.04805v2.pdf` | [[bert]], [[masked-language-modeling]] |
+| `2005.14165v4.pdf` | [[gpt-3]] |
+| `2108.07258v3.pdf` | [[foundation-models]] |
+| `2203.02155v1.pdf` | [[instructgpt]] |
+| `2307.06435v10.pdf` | [[large-language-models]], [[transformer-architecture]], [[pretraining-and-finetuning]], [[rlhf-and-alignment]], [[in-context-learning]], [[scaling-laws]], [[emergent-abilities]], [[hallucination]] |
+| `2312.10997v5.pdf` | [[retrieval-augmented-generation]], [[rag-paradigms]], [[vector-databases-and-embeddings]] |
+| `2503.23278v3.pdf` | [[model-context-protocol]], [[mcp-security-threats]] |
+| `2510.18212v3.pdf` | [[agi-definition]], [[cognitive-capabilities-framework]], [[long-term-memory-in-ai]], [[capability-contortions]] |
+| `VikingMalt_BeerMaltHandbook_Online-1.pdf` | [[beer-types]], [[fermentation-types]], [[beer-brewing-process]], [[malt-production]], [[malt-types]], [[malt-characteristics]], [[malt-extracts]], [[hops]], [[water-chemistry]], [[yeast-and-fermentation-chemistry]], [[beer-recipe-design]], [[malt-flavor-chemistry]], [[pilsner]], [[lager]], [[marzen]], [[oktoberfest]], [[bock]], [[dark-lager]], [[ale]], [[stout]], [[porter]], [[wheat-beer]], [[hefeweizen]], [[pale-malt]], [[pale-ale-malt]], [[munich-malt]], [[vienna-malt]], [[wheat-malt]], [[caramel-malt]], [[chocolate-malt]], [[dark-malts]], [[roasted-malts]], [[black-malt]] |
 
 ---
 

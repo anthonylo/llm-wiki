@@ -139,6 +139,8 @@ After **any** wiki page is added, edited, or deleted, perform these steps before
 
 `wiki/INDEX.md` must list every page in the wiki. Add new pages under the correct section header. If a page is deleted, remove its entry. Keep the "Last updated" date current.
 
+**Also update the Source → Pages Map table**: every time a page is created from a source document, add it to the row for that source in the `## Source → Pages Map` table. If the source is new, add a new row. This makes it easy to audit what has been extracted from each document and identify coverage gaps.
+
 ### 2. Update CHANGELOG.md
 
 Prepend a new dated entry to `wiki/CHANGELOG.md` describing what was added, fixed, or deleted. Format:

@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "wiki/BROKENLINK.md",
+                "file": "wiki/CHANGELOG.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "BROKENLINK"
+              "title": "CHANGELOG"
             }
           }
         ],
@@ -109,7 +109,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "wiki/BROKENLINK.md",
+                "file": "wiki/CHANGELOG.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -119,7 +119,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for BROKENLINK"
+              "title": "Backlinks for CHANGELOG"
             }
           },
           {
@@ -128,12 +128,12 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "wiki/BROKENLINK.md",
+                "file": "wiki/CHANGELOG.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from BROKENLINK"
+              "title": "Outgoing links from CHANGELOG"
             }
           },
           {
@@ -171,13 +171,13 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "wiki/BROKENLINK.md",
+                "file": "wiki/CHANGELOG.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of BROKENLINK"
+              "title": "Outline of CHANGELOG"
             }
           }
         ]
@@ -200,8 +200,30 @@
   },
   "active": "0d45ae46de5ae44f",
   "lastOpenFiles": [
+    "README.md",
+    "wiki/INDEX.md",
+    "processed/ai/0912.1838v1.pdf",
+    "processed/ai/1706.03762v7.pdf",
+    "processed/beer/VikingMalt_BeerMaltHandbook_Online-1.pdf",
+    "processed/beer",
+    "wiki/ai/context.md",
+    "processed/ai",
     "CLAUDE.md",
+    "processed/ai/2203.02155v1.pdf",
+    "processed/ai/2108.07258v3.pdf",
+    "processed/ai/2005.14165v4.pdf",
+    "processed/ai/1810.04805v2.pdf",
+    "wiki/ai/instructgpt.md",
+    "wiki/ai/foundation-models.md",
+    "brackets.md",
+    "prompt.md",
+    "wiki/ai/gpt-3.md",
+    "wiki/ai/masked-language-modeling.md",
+    "wiki/ai/bert.md",
+    "wiki/ai/attention-mechanism.md",
+    "inbox/prompt.md",
     "wiki/BROKENLINK.md",
+    "inbox/1810.04805v2.pdf",
     "wiki/beer/bottom-fermented-beers.md",
     "wiki/beer/top-fermented-beers.md",
     "wiki/beer/beer-yeast.md",
@@ -214,29 +236,7 @@
     "wiki/beer/caramel-malt.md",
     "wiki/beer/wheat-malt.md",
     "wiki/beer/vienna-malt.md",
-    "wiki/beer/munich-malt.md",
-    "wiki/beer/pale-ale-malt.md",
-    "wiki/beer/pale-malt.md",
-    "wiki/ai/large-language-models.md",
-    "bottom-fermented-beers.md",
-    "capability-contortions.md",
-    "wiki/ai/model-context-protocol.md",
-    "wiki/ai/cognitive-capabilities-framework.md",
-    "wiki/ai/capability-contortions.md",
-    "wiki/ai/agi-definition.md",
-    "wiki/INDEX.md",
-    "wiki/CHANGELOG.md",
-    "wiki/ai",
-    "tests/fixtures/sample.pdf",
-    "inbox/VikingMalt_BeerMaltHandbook_Online-1.pdf",
-    "wiki/beer",
     "Untitled.canvas",
-    "Untitled 1.canvas",
-    "inbox/2510.18212v3.pdf",
-    "inbox/2503.23278v3.pdf",
-    "inbox/2312.10997v5.pdf",
-    "inbox/2307.06435v10.pdf",
-    "inbox/0912.1838v1.pdf",
-    "wiki_engine/ingest/__pycache__/pdf_adapter.cpython-314.pyc"
+    "Untitled 1.canvas"
   ]
 }
