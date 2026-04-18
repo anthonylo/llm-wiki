@@ -9,6 +9,8 @@ from rich.table import Table
 
 from wiki_engine import pipeline
 from wiki_engine.config import get_settings
+from wiki_engine.excel_to_markdown import dump_excel_to_markdown
+from wiki_engine.csv_to_markdown import dump_csv_to_markdown
 
 app = typer.Typer(
     name="wiki",
@@ -51,6 +53,58 @@ def watch(
     settings = get_settings()
     watch_dir = inbox or settings.inbox_dir
     watcher.start(watch_dir)
+
+
+@app.command("excel-to-markdown")
+def excel_to_markdown(
+    file: Path = typer.Argument(..., help="Path to the Excel workbook to convert"),
+    output_dir: Optional[Path] = typer.Option(None, "--output-dir", help="Wiki output directory (default: WIKI_DIR)."),
+    sheet: Optional[str] = typer.Option(None, "--sheet", help="Optional sheet name to export."),
+) -> None:
+    """Convert an Excel workbook into a markdown wiki page."""
+    if not file.exists():
+        console.print(f"[red]Error:[/red] File not found: {file}")
+        raise typer.Exit(1)
+
+    settings = get_settings()
+    wiki_dir = output_dir or settings.wiki_dir
+
+    console.print(f"\n[bold]LLM Wiki — Excel to Markdown:[/bold] {file.resolve()}\n")
+    try:
+        output_path = dump_excel_to_markdown(file, wiki_dir, sheet_name=sheet)
+    except Exception as e:
+        console.print(f"[red]Unexpected error:[/red] {e}")
+        raise typer.Exit(1)
+
+    console.print(f"\n[green]Done:[/green] wrote markdown to {output_path.resolve()}\n")
+
+
+@app.command("csv-to-markdown")
+def csv_to_markdown(
+    file: Path = typer.Argument(..., help="Path to the CSV file to convert"),
+    output_dir: Optional[Path] = typer.Option(None, "--output-dir", help="Wiki output directory (default: WIKI_DIR)."),
+) -> None:
+    """Convert a CSV file into markdown wiki pages (one per row)."""
+    if not file.exists():
+        console.print(f"[red]Error:[/red] File not found: {file}")
+        raise typer.Exit(1)
+
+    settings = get_settings()
+    wiki_dir = output_dir or settings.wiki_dir
+
+    console.print(f"\n[bold]LLM Wiki — CSV to Markdown:[/bold] {file.resolve()}\n")
+    try:
+        output_paths = dump_csv_to_markdown(file, wiki_dir)
+    except Exception as e:
+        console.print(f"[red]Unexpected error:[/red] {e}")
+        raise typer.Exit(1)
+
+    if output_paths:
+        console.print(f"\n[green]Done:[/green] wrote {len(output_paths)} markdown pages:")
+        for path in output_paths:
+            console.print(f"  {path.resolve()}")
+    else:
+        console.print(f"\n[yellow]Warning:[/yellow] No valid rows found in {file}\n")
 
 
 def _print_results(results) -> None:

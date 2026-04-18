@@ -8,18 +8,19 @@ The project is designed to:
 - discover related topics and cross-link pages automatically
 - persist processing state in `.wiki_store`
 
-## Ingest Mechanism
+## Ingest Mechanism Examples
 
 ### Prompt 1
 
-For each of the pdfs in /inbox, for each key concept, create a markdown in /wiki with a summary, explanation, related links using [[brackets]], and note any contradictions between the papers.
+`For each of the pdfs in /inbox, for each key concept, create a markdown in /wiki with a summary, explanation, related links using [[brackets]], and note any contradictions between the papers.`
 
 ### Prompt 2
 
-For each key concept within each pdf in /inbox, create a markdown in /wiki/beer with a summary, explanation, related links using [[brackets]], and note any contradictions between the papers.           
+`For each key concept within each pdf in /inbox, create a markdown in /wiki/beer with a summary, explanation, related links using [[brackets]], and note any contradictions between the papers.`
 
 ### Prompt 3
-Can you go through the processed ai pdfs again to see if you're not missing anything? Also, please add a section to the iNDEX to identify what pages are linked to the PDFs, add instructinos to add this information going forward.
+
+`Can you go through the processed AI pdfs again to see if you're not missing anything? Also, please add a section to the iNDEX to identify what pages are linked to the PDFs, add instructinos to add this information going forward.`
 
 ## Key features
 
@@ -113,6 +114,32 @@ Environment variables are defined in `.env` and include:
 
 Defaults are shown in `.env.example`.
 
+### Convert Excel to wiki markdown
+
+```bash
+wiki excel-to-markdown path/to/workbook.xlsx
+```
+
+This command writes a markdown summary page under `wiki/excel/`.
+
+For a repository-local skill, use the `.github/excel_to_markdown` agent skill:
+
+```bash
+python .github/excel_to_markdown/main.py path/to/workbook.xlsx
+```
+### Convert CSV to wiki markdown
+
+```bash
+wiki csv-to-markdown path/to/data.csv
+```
+
+This command writes one markdown page per row under `wiki/csv/`.
+
+For a repository-local skill, use the `.github/csv_to_markdown` agent skill:
+
+```bash
+python .github/csv_to_markdown/main.py path/to/data.csv
+```
 ## Testing
 
 ```bash

@@ -4,39 +4,20 @@
     "type": "split",
     "children": [
       {
-        "id": "85cc4bc0f473e041",
+        "id": "6e7de7d69aabc649",
         "type": "tabs",
         "children": [
           {
-            "id": "32f7d846214f3387",
+            "id": "e47e7056297b4d8e",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "wiki/ai/agi-definition.md",
-                "mode": "source",
-                "source": false
-              },
+              "type": "empty",
+              "state": {},
               "icon": "lucide-file",
-              "title": "agi-definition"
-            }
-          },
-          {
-            "id": "0d45ae46de5ae44f",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "wiki/CHANGELOG.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "CHANGELOG"
+              "title": "New tab"
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -93,7 +74,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 491.5
   },
   "right": {
     "id": "7c6070ca4dcfafe2",
@@ -109,7 +90,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "wiki/CHANGELOG.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -119,7 +99,7 @@
                 "unlinkedCollapsed": true
               },
               "icon": "links-coming-in",
-              "title": "Backlinks for CHANGELOG"
+              "title": "Backlinks"
             }
           },
           {
@@ -128,12 +108,11 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "wiki/CHANGELOG.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               },
               "icon": "links-going-out",
-              "title": "Outgoing links from CHANGELOG"
+              "title": "Outgoing links"
             }
           },
           {
@@ -171,13 +150,12 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "wiki/CHANGELOG.md",
                 "followCursor": false,
                 "showSearch": false,
                 "searchQuery": ""
               },
               "icon": "lucide-list",
-              "title": "Outline of CHANGELOG"
+              "title": "Outline"
             }
           }
         ]
@@ -198,44 +176,44 @@
       "bases:Create new base": false
     }
   },
-  "active": "0d45ae46de5ae44f",
+  "active": "e47e7056297b4d8e",
   "lastOpenFiles": [
-    "README.md",
+    "wiki/ai/large-language-models.md",
     "wiki/INDEX.md",
+    "wiki/beer/roasted-malts.md",
+    "wiki/beer/malt-types.md",
+    "wiki/beer/oktoberfest.md",
+    "wiki/ai/gpt-3.md",
+    "scripts/excel_to_markdown_agent.py",
+    "scripts",
+    "wiki_engine/__pycache__/excel_to_markdown.cpython-314.pyc",
+    "wiki_engine/excel_to_markdown.py",
+    "wiki/ai/agi-definition.md",
+    "wiki/ai/instructgpt.md",
+    "wiki/ai/context.md",
+    "wiki/ai/rlhf-and-alignment.md",
+    "wiki/ai/capability-contortions.md",
+    "README.md",
+    "wiki/ai/masked-language-modeling.md",
+    "wiki/ai/pretraining-and-finetuning.md",
+    "wiki/ai/in-context-learning.md",
+    "wiki/ai/hallucination.md",
+    "wiki/ai/foundation-models.md",
+    "wiki/ai/emergent-abilities.md",
+    "wiki/ai/cognitive-capabilities-framework.md",
+    "wiki/ai/bert.md",
+    "wiki/ai/attention-mechanism.md",
+    "refrigeration-in-brewing.md",
+    "wiki/CHANGELOG.md",
     "processed/ai/0912.1838v1.pdf",
     "processed/ai/1706.03762v7.pdf",
     "processed/beer/VikingMalt_BeerMaltHandbook_Online-1.pdf",
     "processed/beer",
-    "wiki/ai/context.md",
     "processed/ai",
     "CLAUDE.md",
     "processed/ai/2203.02155v1.pdf",
-    "processed/ai/2108.07258v3.pdf",
-    "processed/ai/2005.14165v4.pdf",
-    "processed/ai/1810.04805v2.pdf",
-    "wiki/ai/instructgpt.md",
-    "wiki/ai/foundation-models.md",
     "brackets.md",
     "prompt.md",
-    "wiki/ai/gpt-3.md",
-    "wiki/ai/masked-language-modeling.md",
-    "wiki/ai/bert.md",
-    "wiki/ai/attention-mechanism.md",
-    "inbox/prompt.md",
-    "wiki/BROKENLINK.md",
-    "inbox/1810.04805v2.pdf",
-    "wiki/beer/bottom-fermented-beers.md",
-    "wiki/beer/top-fermented-beers.md",
-    "wiki/beer/beer-yeast.md",
-    "wiki/beer/oktoberfest.md",
-    "wiki/beer/hefeweizen.md",
-    "wiki/beer/black-malt.md",
-    "wiki/beer/roasted-malts.md",
-    "wiki/beer/dark-malts.md",
-    "wiki/beer/chocolate-malt.md",
-    "wiki/beer/caramel-malt.md",
-    "wiki/beer/wheat-malt.md",
-    "wiki/beer/vienna-malt.md",
     "Untitled.canvas",
     "Untitled 1.canvas"
   ]
