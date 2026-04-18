@@ -26,6 +26,8 @@ class Settings(BaseSettings):
 
     max_rows_per_prompt: int = Field(default=200, alias="MAX_ROWS_PER_PROMPT")
 
+    archive_dir: Path = Field(default=Path("processed"), alias="ARCHIVE_DIR")
+
     @property
     def chroma_dir(self) -> Path:
         return self.store_dir / "chroma"

@@ -13,6 +13,7 @@ class SourceSection:
     row_count: int = 0
     column_names: list[str] = field(default_factory=list)
     metadata: dict = field(default_factory=dict)
+    category: str | None = None  # wiki subdirectory slug (e.g. "ai", "beer")
 
     @property
     def slug(self) -> str:

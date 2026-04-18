@@ -43,10 +43,11 @@ uv run pytest -v                        # Verbose output
 | `ANTHROPIC_API_KEY` | *(required)* | Your Anthropic API key |
 | `WIKI_DIR` | `wiki` | Output directory for markdown pages |
 | `INBOX_DIR` | `inbox` | Watched directory for auto-ingest |
+| `ARCHIVE_DIR` | `processed` | Source files are moved here after successful ingestion |
 | `STORE_DIR` | `.wiki_store` | Internal state (ChromaDB, hashes) |
 | `GENERATION_MODEL` | `claude-opus-4-6` | Model for page generation |
 | `VALIDATION_MODEL` | `claude-opus-4-6` | Model for fidelity/consistency checks |
-| `LINKING_MODEL` | `claude-haiku-4-5-20251001` | Model for cross-link discovery |
+| `LINKING_MODEL` | `claude-haiku-4-5-20251001` | Model for cross-link discovery and category classification |
 | `MAX_ROWS_PER_PROMPT` | `200` | Max rows sent to LLM per section |
 
 ## Architecture
@@ -65,10 +66,12 @@ WikiPipeline.run(file_path)
       ├─ [4] WikiValidator.check_fidelity() — regenerate once on fail
       ├─ [5] EmbeddingStore.query_similar() — find related pages
       ├─ [6] WikiValidator.check_consistency() — block on contradiction
-      ├─ [7] CrossLinker.find_links() — discover Related Pages
-      ├─ [8] WikiWriter.write() → wiki/{slug}.md
+      ├─ [7] CrossLinker.classify_category() → category slug (Haiku)
+      ├─ [7b] CrossLinker.find_links() — discover Related Pages
+      ├─ [8] WikiWriter.write() → wiki/{category}/{slug}.md
       ├─ [9] EmbeddingStore.upsert() — index for future queries
-      └─ [10] IndexManager.update() + ChangelogManager.append()
+      ├─ [10] IndexManager.update() + ChangelogManager.append()
+      └─ [11] Archive source file → processed/{filename}
 ```
 
 ### Package Structure
@@ -116,10 +119,11 @@ wiki_engine/
 
 ### Output Files
 
-- `wiki/{slug}.md` — Generated wiki pages with YAML front-matter
+- `wiki/{category}/{slug}.md` — Generated wiki pages, categorised into subdirectories
 - `wiki/INDEX.md` — Auto-rebuilt table of all pages
 - `wiki/CHANGELOG.md` — Prepended log of all ingest events
 - `wiki/BROKENLINK.md` — Links that appeared in pages but could not be resolved
+- `processed/` — Source files archived here after successful ingestion (gitignored)
 - `.wiki_store/processed/` — SHA-256 hashes for deduplication
 - `.wiki_store/chroma/` — ChromaDB vector store
 
@@ -174,6 +178,16 @@ For each broken link found:
 
 Any page with no inbound links should be linked from at least one related page (usually its nearest category overview page). Orphaned pages are invisible to readers navigating by links.
 
-### 6. Commit
+### 6. Archive source files
+
+After manually writing wiki pages from a source document (without running the pipeline), move the source file from `inbox/` to `processed/`:
+
+```bash
+mv inbox/my-document.pdf processed/
+```
+
+The pipeline does this automatically. When working manually, it must be done explicitly to prevent accidental re-processing.
+
+### 7. Commit
 
 Stage all changes and commit with a descriptive message covering the maintenance actions taken.

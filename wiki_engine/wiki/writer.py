@@ -6,9 +6,14 @@ from .page import WikiPage
 
 
 def write(page: WikiPage, wiki_dir: Path) -> Path:
-    """Write the wiki page to disk, injecting the Related Pages section."""
-    wiki_dir.mkdir(parents=True, exist_ok=True)
-    out_path = wiki_dir / f"{page.slug}.md"
+    """Write the wiki page to disk, injecting the Related Pages section.
+
+    If page.category is set, writes to wiki/{category}/{slug}.md.
+    Otherwise falls back to wiki/{slug}.md.
+    """
+    target_dir = wiki_dir / page.category if page.category else wiki_dir
+    target_dir.mkdir(parents=True, exist_ok=True)
+    out_path = target_dir / f"{page.slug}.md"
 
     content = page.content
 

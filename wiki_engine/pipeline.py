@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import shutil
 from pathlib import Path
 
 from rich.console import Console
@@ -62,12 +63,28 @@ def _load_similar_pages(similar_data: list[dict], wiki_dir: Path) -> list[WikiPa
     return pages
 
 
+def _archive_file(file_path: Path, archive_dir: Path) -> None:
+    """Move a source file to the archive directory after successful processing."""
+    archive_dir.mkdir(parents=True, exist_ok=True)
+    dest = archive_dir / file_path.name
+    if dest.exists():
+        # If a file with same name already exists, suffix with a counter
+        stem, suffix = file_path.stem, file_path.suffix
+        counter = 1
+        while dest.exists():
+            dest = archive_dir / f"{stem}.{counter}{suffix}"
+            counter += 1
+    shutil.move(str(file_path), dest)
+    console.print(f"  [dim]Archived[/dim] {file_path.name} → {dest}")
+
+
 def run(file_path: Path, force: bool = False) -> list[ProcessingResult]:
     """Run the full ingestion pipeline for a single file. Returns one result per section."""
     settings = get_settings()
     settings.wiki_dir.mkdir(parents=True, exist_ok=True)
     settings.store_dir.mkdir(parents=True, exist_ok=True)
     settings.processed_dir.mkdir(parents=True, exist_ok=True)
+    settings.archive_dir.mkdir(parents=True, exist_ok=True)
 
     # Step 1: Deduplication
     if not force and _is_processed(file_path, settings.processed_dir):
@@ -86,10 +103,11 @@ def run(file_path: Path, force: bool = False) -> list[ProcessingResult]:
         result = _process_section(section, settings)
         results.append(result)
 
-    # Mark file as processed only if all sections were OK or rejected (not blocked/error)
+    # Mark file as processed and archive only if no blocking errors occurred
     statuses = {r.status for r in results}
     if "blocked" not in statuses and "error" not in statuses:
         _mark_processed(file_path, settings.processed_dir)
+        _archive_file(file_path, settings.archive_dir)
 
     # Update INDEX.md
     index.update(settings.wiki_dir)
@@ -166,7 +184,12 @@ def _process_section(section: SourceSection, settings) -> ProcessingResult:
             contradictions=contradictions,
         )
 
-    # Step 7: Cross-links
+    # Step 7: Classify category
+    console.print(f"    [dim]Classifying category…[/dim]")
+    page.category = section.category or linker.classify_category(page)
+    console.print(f"    [dim]Category:[/dim] {page.category}")
+
+    # Step 7b: Cross-links
     console.print(f"    [dim]Finding cross-links…[/dim]")
     links = linker.find_links(page, similar_pages)
     page.links = links

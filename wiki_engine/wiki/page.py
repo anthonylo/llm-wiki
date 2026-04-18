@@ -14,6 +14,7 @@ class WikiPage:
     source_section: "SourceSection"
     content: str                    # Full Markdown content
     links: list[dict] = field(default_factory=list)  # [{slug, reason}]
+    category: str | None = None     # wiki subdirectory slug (e.g. "ai", "beer")
 
 
 @dataclass
