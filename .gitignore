@@ -1,6 +1,7 @@
 .env
 .DS_Store
 .wiki_store/
+.obsidian/workspace.json
 __pycache__/
 *.pyc
 *.pyo
