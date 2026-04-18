@@ -1,7 +1,6 @@
 .env
+.DS_Store
 .wiki_store/
-wiki/
-inbox/
 __pycache__/
 *.pyc
 *.pyo

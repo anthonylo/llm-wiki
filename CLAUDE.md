@@ -119,5 +119,61 @@ wiki_engine/
 - `wiki/{slug}.md` — Generated wiki pages with YAML front-matter
 - `wiki/INDEX.md` — Auto-rebuilt table of all pages
 - `wiki/CHANGELOG.md` — Prepended log of all ingest events
+- `wiki/BROKENLINK.md` — Links that appeared in pages but could not be resolved
 - `.wiki_store/processed/` — SHA-256 hashes for deduplication
 - `.wiki_store/chroma/` — ChromaDB vector store
+
+---
+
+## Wiki Maintenance
+
+After **any** wiki page is added, edited, or deleted, perform these steps before committing:
+
+### 1. Update INDEX.md
+
+`wiki/INDEX.md` must list every page in the wiki. Add new pages under the correct section header. If a page is deleted, remove its entry. Keep the "Last updated" date current.
+
+### 2. Update CHANGELOG.md
+
+Prepend a new dated entry to `wiki/CHANGELOG.md` describing what was added, fixed, or deleted. Format:
+
+```markdown
+## YYYY-MM-DD — Short description
+
+### Added
+- `path/to/page.md` — one-line description
+
+### Fixed
+- `path/to/page.md` — what was corrected
+
+### Deleted
+- `path/to/page.md` — why it was removed
+```
+
+### 3. Audit Wikilinks
+
+Extract all `[[slug]]` links and verify each one resolves to an existing file. Run:
+
+```bash
+# Find all wikilinks and compare against existing pages
+grep -roh '\[\[[^]]*\]\]' wiki/ | sed 's/\[\[//;s/\]\]//;s/|.*//' | sort -u > /tmp/links.txt
+find wiki/ -name "*.md" | grep -v 'INDEX\|CHANGELOG\|BROKENLINK' | xargs -I{} basename {} .md | sort -u > /tmp/pages.txt
+comm -23 /tmp/links.txt /tmp/pages.txt   # broken links
+comm -13 /tmp/links.txt /tmp/pages.txt   # orphaned pages (no inbound links)
+```
+
+### 4. Resolve Broken Links
+
+For each broken link found:
+
+- **Create the page** if there is sufficient source material in the ingested documents.
+- **Create a redirect stub** if the concept is covered under a different slug (point to the canonical page).
+- **Log to `wiki/BROKENLINK.md`** if there is no source material to create the page. Include: slug, which page(s) link to it, and a note on why it can't be created yet.
+
+### 5. Fix Orphaned Pages
+
+Any page with no inbound links should be linked from at least one related page (usually its nearest category overview page). Orphaned pages are invisible to readers navigating by links.
+
+### 6. Commit
+
+Stage all changes and commit with a descriptive message covering the maintenance actions taken.
