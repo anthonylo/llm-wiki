@@ -1,5 +1,0 @@
-tag,name,description,eventType,required,addedBy,addedDate,updatedBy,updatedDate
-hallucination,Hallucination in LLMs,Generation of factually incorrect text,limitation,true,AI Research Team,2024-01-15,AI Research Team,2024-03-20
-rag,Retrieval-Augmented Generation,Enhances LLMs with external documents,technique,true,ML Engineer,2023-11-10,ML Engineer,2024-02-05
-agi,Artificial General Intelligence,Systems with human-like cognitive abilities,goal,false,Research Lead,2024-05-01,Research Lead,2024-05-01
-transformer,Transformer Architecture,Neural network architecture for sequence modeling,foundation,true,Deep Learning Team,2020-06-01,Deep Learning Team,2023-12-15

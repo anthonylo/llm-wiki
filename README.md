@@ -12,7 +12,7 @@ The project is designed to:
 
 ### Prompt 1
 
-`For each of the pdfs in /inbox, for each key concept, create a markdown in /wiki with a summary, explanation, related links using [[brackets]], and note any contradictions between the papers.`
+`For each key concept in the pdfs in /inbox, create a markdown in /wiki with a summary, explanation, related links using [[brackets]], and note any contradictions between the papers.`
 
 ### Prompt 2
 
