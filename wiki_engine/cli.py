@@ -11,6 +11,7 @@ from wiki_engine import pipeline
 from wiki_engine.config import get_settings
 from wiki_engine.excel_to_markdown import dump_excel_to_markdown
 from wiki_engine.csv_to_markdown import dump_csv_to_markdown
+from wiki_engine.url_to_pdf import download_url_as_pdf
 
 app = typer.Typer(
     name="wiki",
@@ -105,6 +106,25 @@ def csv_to_markdown(
             console.print(f"  {path.resolve()}")
     else:
         console.print(f"\n[yellow]Warning:[/yellow] No valid rows found in {file}\n")
+
+
+@app.command("url-to-pdf")
+def url_to_pdf(
+    url: str = typer.Argument(..., help="URL to download as PDF"),
+    inbox_dir: Optional[Path] = typer.Option(None, "--inbox-dir", help="Destination directory (default: INBOX_DIR)."),
+) -> None:
+    """Download a URL as a PDF and save it to the inbox directory."""
+    settings = get_settings()
+    dest_dir = inbox_dir or settings.inbox_dir
+
+    console.print(f"\n[bold]LLM Wiki — URL to PDF:[/bold] {url}\n")
+    try:
+        dest = download_url_as_pdf(url, dest_dir)
+    except Exception as e:
+        console.print(f"[red]Error:[/red] {e}")
+        raise typer.Exit(1)
+
+    console.print(f"[green]Saved:[/green] {dest.resolve()}\n")
 
 
 def _print_results(results) -> None:

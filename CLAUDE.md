@@ -28,6 +28,15 @@ uv run wiki watch
 # Drop any CSV, TSV, XLSX, XLS, or JSON file into inbox/ to auto-process
 ```
 
+### Download a URL as PDF into inbox/
+```bash
+uv run wiki url-to-pdf https://arxiv.org/pdf/2305.10601
+uv run wiki url-to-pdf https://example.com/report --inbox-dir inbox/
+
+# First-time setup: install Chromium for HTML→PDF rendering
+uv run playwright install chromium
+```
+
 ## Testing
 
 ```bash
