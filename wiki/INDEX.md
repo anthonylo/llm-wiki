@@ -1,6 +1,6 @@
 # Wiki Index
 
-Knowledge base from ingested papers and handbooks. Last updated: 2026-04-18.
+Knowledge base from ingested papers and handbooks. Last updated: 2026-04-19.
 
 
 ## Sources
@@ -17,11 +17,11 @@ Knowledge base from ingested papers and handbooks. Last updated: 2026-04-18.
 | `2312.10997v5.pdf`                         | Retrieval-Augmented Generation for Large Language Models: A Survey                  | 2023 |
 | `2503.23278v3.pdf`                         | Model Context Protocol: Landscape, Security Threats, and Future Research Directions | 2025 |
 | `2510.18212v3.pdf`                         | A Definition of AGI                                                                 | 2025 |
-| `VikingMalt_BeerMaltHandbook_Online-1.pdf` | Viking Malt Beer & Malt Handbook                                                    | 2024 |
 | `2602.20867v1.pdf`                         | SoK: Agentic Skills — Beyond Tool Use in LLM Agents                                | 2025 |
 | `www-anthropic-com-...agent-ski.pdf`       | Equipping agents for the real world with Agent Skills (Anthropic Engineering)       | 2025 |
 | `Spark-Cluster-Computing-with-Working-Sets.pdf` | Spark: Cluster Computing with Working Sets                                     | 2010 |
 | `The-Data-Engineers-Guide-to-Apache-Spark.pdf` | The Data Engineer's Guide to Apache Spark (Databricks)                          | 2017 |
+| `mapreduce-osdi04.pdf`                     | MapReduce: Simplified Data Processing on Large Clusters (Dean & Ghemawat, Google) | 2004 |
 
 ---
 
@@ -41,11 +41,11 @@ Which wiki pages were generated from each source document. Update this table whe
 | `2312.10997v5.pdf` | [[retrieval-augmented-generation]], [[rag-paradigms]], [[vector-databases-and-embeddings]] |
 | `2503.23278v3.pdf` | [[model-context-protocol]], [[mcp-security-threats]] |
 | `2510.18212v3.pdf` | [[agi-definition]], [[cognitive-capabilities-framework]], [[long-term-memory-in-ai]], [[capability-contortions]] |
-| `VikingMalt_BeerMaltHandbook_Online-1.pdf` | [[beer-types]], [[fermentation-types]], [[beer-brewing-process]], [[malt-production]], [[malt-types]], [[malt-characteristics]], [[malt-extracts]], [[hops]], [[water-chemistry]], [[yeast-and-fermentation-chemistry]], [[beer-recipe-design]], [[malt-flavor-chemistry]], [[pilsner]], [[lager]], [[marzen]], [[oktoberfest]], [[bock]], [[dark-lager]], [[ale]], [[stout]], [[porter]], [[wheat-beer]], [[hefeweizen]], [[pale-malt]], [[pale-ale-malt]], [[munich-malt]], [[vienna-malt]], [[wheat-malt]], [[caramel-malt]], [[chocolate-malt]], [[dark-malts]], [[roasted-malts]], [[black-malt]] |
 | `2602.20867v1.pdf` | [[agentic-skills]], [[skill-lifecycle]], [[skill-design-patterns]], [[skill-security-governance]], [[skills-evaluation]] |
 | `www-anthropic-com-...agent-ski.pdf` | [[anthropic-agent-skills]] |
 | `Spark-Cluster-Computing-with-Working-Sets.pdf` | [[apache-spark]], [[resilient-distributed-datasets]] |
 | `The-Data-Engineers-Guide-to-Apache-Spark.pdf` | [[apache-spark]], [[spark-structured-apis]] |
+| `mapreduce-osdi04.pdf` | [[mapreduce]], [[mapreduce-execution]], [[mapreduce-fault-tolerance]], [[mapreduce-optimizations]] |
 
 ---
 
@@ -79,6 +79,12 @@ Which wiki pages were generated from each source document. Update this table whe
 ### Reliability & Limitations (`wiki/ai/`)
 - [[hallucination]] — Types, causes, detection, mitigation
 
+### MapReduce (`wiki/data/`)
+- [[mapreduce]] — Programming model, map/reduce functions, key/value types, applications, scale at Google (29,423 jobs/Aug 2004)
+- [[mapreduce-execution]] — 7-step execution flow, master/worker architecture, M×R task granularity, shuffle, sort benchmarks
+- [[mapreduce-fault-tolerance]] — Worker/master failure, re-execution, atomic commits, bad-record skipping, determinism semantics
+- [[mapreduce-optimizations]] — Data locality scheduling, backup tasks (−44% sort time), combiner function, custom partitioning
+
 ### Apache Spark & Distributed Data (`wiki/data/`)
 - [[apache-spark]] — Spark architecture, MapReduce limitations, RDDs, performance: 10× over Hadoop on iterative ML
 - [[resilient-distributed-datasets]] — RDD properties, lineage fault tolerance, caching, broadcast variables, accumulators
@@ -101,61 +107,6 @@ Which wiki pages were generated from each source document. Update this table whe
 - [[cognitive-capabilities-framework]] — 10 CHC domains with AI benchmarks and scores
 - [[long-term-memory-in-ai]] — MS=0% bottleneck; why LLMs lack genuine LTM
 - [[capability-contortions]] — Engineering workarounds masking architectural deficits
-
----
-
-### Beer & Brewing — Core Concepts (`wiki/beer/`)
-
-- [[beer-types]] — Classification of beer styles: top/bottom fermented, all major styles
-- [[fermentation-types]] — Top vs bottom fermentation: yeast biology, flavour consequences, schedules
-- [[beer-brewing-process]] — Full brewing process: mashing, lautering, boiling, fermentation, conditioning, filtration
-- [[malt-production]] — Malting process: steeping, germination, kilning, roasting, caramel malt production
-- [[malt-types]] — Base malts, caramel malts, dark/roasted malts, wheat malts, specialty malts
-- [[malt-characteristics]] — Analytical parameters: extract yield, EBC colour, diastatic power, protein, FAN, pH, viscosity
-- [[malt-extracts]] — Maltax extract range; extract brewing recipes; gluten-free and alcohol-free applications
-
-### Beer & Brewing — Ingredients (`wiki/beer/`)
-
-- [[hops]] — Alpha acids, bitterness (IBU/BU), isomerisation, Viking varieties, dry hopping
-- [[water-chemistry]] — Mineral ions, sulphate:chloride ratio, mash pH, historical style geography
-- [[yeast-and-fermentation-chemistry]] — Esters, phenols, diacetyl, attenuation, strain selection, Viking yeast strains
-
-### Beer & Brewing — Malt Types (`wiki/beer/`)
-
-- [[pale-malt]] — Base pale malts: Pilsner, Golden Ale, and pale malt variants overview
-- [[pale-ale-malt]] — Pale ale–specific base malt with biscuity character
-- [[munich-malt]] — Rich amber base malt defining Märzen and Bock
-- [[vienna-malt]] — Intermediate amber base malt defining Vienna Lager
-- [[wheat-malt]] — Malted wheat: haze, foam, Hefeweizen, NEIPA
-- [[caramel-malt]] — Crystal/caramel malts: non-fermentable sweetness, colour, body
-- [[chocolate-malt]] — Roasted malt at ~800 EBC: chocolate and coffee flavours
-- [[dark-malts]] — Dark malt overview: the full roasted/kilned specialty spectrum
-- [[roasted-malts]] — Roasted barley and black malt: extreme colour and dry bitterness
-- [[black-malt]] — Black patent malt: maximum colour, harsh roast
-
-### Beer & Brewing — Recipe & Flavour (`wiki/beer/`)
-
-- [[beer-recipe-design]] — Grain bill design, OG/FG/ABV calculations, mash programming, hop schedules
-- [[malt-flavor-chemistry]] — Maillard reaction, caramelisation, kilning temperature vs flavour spectrum
-
-### Beer & Brewing — Beer Styles (`wiki/beer/`)
-
-- [[pilsner]] — Bohemian and German Pilsner
-- [[lager]] — Lager styles overview
-- [[marzen]] — Märzen / Oktoberfest amber lager
-- [[oktoberfest]] — Oktoberfest history, Märzen vs modern pale Oktoberfest
-- [[bock]] — Bock, Doppelbock, Maibock
-- [[dark-lager]] — Dunkel, Schwarzbier, dark bottom-fermented styles
-- [[ale]] — Ale styles: Pale Ale, IPA, Bitter, Barleywine
-- [[stout]] — Dry Stout, Sweet Stout, Imperial Stout
-- [[porter]] — Porter history and substyles
-- [[wheat-beer]] — Wheat beer styles overview
-- [[hefeweizen]] — Hefeweizen in detail: yeast chemistry, POF+ gene, banana/clove balance
-
-### Redirect Stubs (`wiki/beer/`)
-- [[beer-yeast]] → [[yeast-and-fermentation-chemistry]]
-- [[top-fermented-beers]] → [[fermentation-types]]
-- [[bottom-fermented-beers]] → [[fermentation-types]]
 
 ---
 

@@ -1,5 +1,19 @@
 # Changelog
 
+## 2026-04-19 — MapReduce: Original OSDI 2004 Paper
+
+### Added (Sources)
+- `processed/data/mapreduce-osdi04.pdf` — MapReduce: Simplified Data Processing on Large Clusters (Dean & Ghemawat, Google, OSDI 2004)
+
+### Added (Pages)
+- `wiki/data/mapreduce.md` — Programming model: map/reduce functions, key/value types, canonical examples (word count, grep, sort, inverted index), Google production scale (29,423 jobs, 3,288 TB input in Aug 2004), large-scale indexing rewrite
+- `wiki/data/mapreduce-execution.md` — 7-step execution flow, master data structures, M×R task granularity, partitioning function, ordering guarantees, cluster environment, performance benchmarks (grep 150s, sort 891s vs TeraSort record 1,057s)
+- `wiki/data/mapreduce-fault-tolerance.md` — Worker/master failure detection and re-execution, completed map vs reduce task asymmetry, atomic commits via temp file rename, non-deterministic semantics, bad-record skipping via signal handler + UDP, counter facility
+- `wiki/data/mapreduce-optimizations.md` — Data locality scheduling (GFS replica awareness), backup tasks (−44% sort time when disabled), combiner function (partial pre-aggregation on map workers), custom partitioning functions
+
+### Updated
+- `wiki/INDEX.md` — Added MapReduce source entry, Source→Pages Map row, MapReduce section under Pages
+
 ## 2026-04-18 — Apache Spark: Original Paper + Data Engineer's Guide
 
 ### Added (Sources)
