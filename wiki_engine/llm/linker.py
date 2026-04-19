@@ -3,9 +3,16 @@ from __future__ import annotations
 import json
 import re
 
+from pydantic import BaseModel, ValidationError as PydanticValidationError
+
 from wiki_engine.wiki.page import WikiPage
 
 from .client import get_client
+
+
+class _LinkResult(BaseModel):
+    slug: str
+    reason: str
 
 CATEGORY_SYSTEM = """\
 You are a wiki content classifier. Given a wiki page title, its first ~500 characters of content,
@@ -88,9 +95,12 @@ def find_links(page: WikiPage, similar_pages: list[WikiPage]) -> list[dict]:
         messages=[{"role": "user", "content": user_msg}],
     )
     raw = _strip_json_fences(response.content[0].text)
-    result = json.loads(raw)
-    if not isinstance(result, list):
-        return []
-    # Validate slugs
     valid_slugs = {p.slug for p in similar_pages}
-    return [item for item in result if isinstance(item, dict) and item.get("slug") in valid_slugs]
+    try:
+        parsed = json.loads(raw)
+        if not isinstance(parsed, list):
+            return []
+        links = [_LinkResult.model_validate(item) for item in parsed]
+    except (json.JSONDecodeError, PydanticValidationError):
+        return []
+    return [lnk.model_dump() for lnk in links if lnk.slug in valid_slugs]
