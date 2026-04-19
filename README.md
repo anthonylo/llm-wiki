@@ -146,6 +146,36 @@ python .github/csv_to_markdown/main.py path/to/data.csv
 pytest tests/
 ```
 
+## Agent skills
+
+Three agent skills live under `.github/`. Each is a thin CLI wrapper that imports directly from `wiki_engine`:
+
+```
+Agent triggers skill
+       │
+       ▼
+.github/{skill}/SKILL.md      ← skill documentation and metadata
+       │
+       ▼
+.github/{skill}/main.py       ← argparse CLI entry point
+       │  imports directly from wiki_engine
+       ▼
+wiki_engine/config.py         ← get_settings() loads .env via Pydantic
+       +
+wiki_engine/{module}.py       ← core logic function
+       │
+       ▼
+wiki/ or inbox/               ← output written to disk
+```
+
+| Skill | Entry point | wiki_engine function |
+|-------|-------------|---------------------|
+| `csv_to_markdown` | `.github/csv_to_markdown/main.py` | `wiki_engine.csv_to_markdown.dump_csv_to_markdown()` |
+| `excel_to_markdown` | `.github/excel_to_markdown/main.py` | `wiki_engine.excel_to_markdown.dump_excel_to_markdown()` |
+| `url_to_pdf` | `.github/url_to_pdf/main.py` | `wiki_engine.url_to_pdf.download_url_as_pdf()` |
+
+Each skill is also registered as a Typer command in `wiki_engine/cli.py` (`csv-to-markdown`, `excel-to-markdown`, `url-to-pdf`). The `.github/` scripts exist as standalone entry points for invocation without the full `wiki` CLI. The `.hf-skill-manifest.json` file in each skill directory is metadata for the skill runner and is not part of the Python call chain.
+
 ## Project structure
 
 - `wiki_engine/cli.py` — Typer CLI entrypoint
