@@ -35,8 +35,13 @@ def main() -> None:
     settings = get_settings()
     wiki_dir = args.output_dir or settings.wiki_dir
 
-    output_path = dump_excel_to_markdown(args.file, wiki_dir, sheet_name=args.sheet)
-    print(f"Wrote markdown page: {output_path.resolve()}")
+    output_paths = dump_excel_to_markdown(args.file, wiki_dir, sheet_name=args.sheet)
+    if output_paths:
+        print(f"Wrote {len(output_paths)} markdown pages:")
+        for path in output_paths:
+            print(f"  {path.resolve()}")
+    else:
+        print("No valid rows found in workbook.")
 
 
 if __name__ == "__main__":

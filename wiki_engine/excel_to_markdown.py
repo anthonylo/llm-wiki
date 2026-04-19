@@ -2,34 +2,18 @@ from __future__ import annotations
 
 import re
 from pathlib import Path
-from typing import Iterable
+from typing import Any
 
 import openpyxl
 
-MAX_PREVIEW_ROWS = 5
 
-
-def _slugify(text: str) -> str:
+def _slugify(text: str, fallback: str = "entry") -> str:
     text = text.strip().lower().replace(" ", "-")
     text = re.sub(r"[^a-z0-9\-]", "", text)
-    return text or "sheet"
+    return text or fallback
 
 
-def _render_markdown_table(header: list[str], rows: list[list[str]]) -> str:
-    if not header:
-        return ""
-
-    lines = ["| " + " | ".join(header) + " |"]
-    lines.append("| " + " | ".join("---" for _ in header) + " |")
-    for row in rows:
-        normalized = [str(cell or "") for cell in row]
-        while len(normalized) < len(header):
-            normalized.append("")
-        lines.append("| " + " | ".join(normalized[: len(header)]) + " |")
-    return "\n".join(lines)
-
-
-def _format_value(value: object) -> str:
+def _format_value(value: Any) -> str:
     if value is None:
         return ""
     if isinstance(value, bool):
@@ -39,92 +23,103 @@ def _format_value(value: object) -> str:
 
 def _read_sheet_data(sheet) -> tuple[list[str], list[list[str]]]:
     rows = [list(row) for row in sheet.iter_rows(values_only=True)]
-    non_empty = [row for row in rows if any(cell is not None and str(cell).strip() != "" for cell in row)]
+    non_empty = [
+        row for row in rows
+        if any(cell is not None and str(cell).strip() != "" for cell in row)
+    ]
     if not non_empty:
         return [], []
-
     header = [str(cell).strip() if cell is not None else "" for cell in non_empty[0]]
     data_rows = [[_format_value(cell) for cell in row] for row in non_empty[1:]]
     return header, data_rows
+
+
+def _format_row_markdown(
+    row: dict[str, str],
+    workbook_name: str,
+    sheet_name: str,
+    row_number: int,
+) -> str:
+    identifier = str(row[list(row.keys())[0]])
+    title = identifier
+
+    tags = [
+        "excel",
+        _slugify(workbook_name, "workbook"),
+        _slugify(sheet_name, "sheet"),
+        _slugify(identifier),
+    ]
+
+    name_field = row.get("name", identifier)
+    summary = f"This entry describes {name_field}."
+
+    data_points = [f"- **{key}**: {value}" for key, value in row.items()]
+
+    content_lines = [
+        "---",
+        f"title: {title}",
+        f"tags: [{', '.join(tags)}]",
+        f"sources: [\"{workbook_name}\"]",
+        f"sheet: {sheet_name}",
+        f"row number: {row_number}",
+        "---",
+        "",
+        "## Summary",
+        "",
+        summary,
+        "",
+        "## Data Points",
+        "",
+        "\n".join(data_points),
+    ]
+
+    return "\n".join(content_lines).strip() + "\n"
 
 
 def dump_excel_to_markdown(
     file_path: Path,
     wiki_dir: Path,
     sheet_name: str | None = None,
-    max_preview_rows: int = MAX_PREVIEW_ROWS,
-) -> Path:
-    """Read an Excel workbook and write a markdown summary page to the wiki."""
+) -> list[Path]:
+    """Read an Excel workbook and write one markdown page per data row.
+
+    Returns the list of written file paths.
+    """
     workbook = openpyxl.load_workbook(file_path, read_only=True, data_only=True)
     workbook_name = file_path.stem
-    workbook_slug = _slugify(workbook_name)
+    workbook_slug = _slugify(workbook_name, "workbook")
 
-    sections: list[str] = []
-    sheet_names: list[str] = []
+    output_paths: list[Path] = []
 
     for name in workbook.sheetnames:
         if sheet_name is not None and name != sheet_name:
             continue
+
         header, data_rows = _read_sheet_data(workbook[name])
         if not header:
             continue
 
-        sheet_slug = _slugify(name)
-        sheet_names.append(name)
-        total_rows = len(data_rows)
-        preview_rows = data_rows[:max_preview_rows]
+        sheet_slug = _slugify(name, "sheet")
+        output_dir = wiki_dir / "excel" / workbook_slug / sheet_slug
+        output_dir.mkdir(parents=True, exist_ok=True)
 
-        sections.append(f"### {name}\n")
-        sections.append(f"- **Rows**: {total_rows}")
-        sections.append(f"- **Columns**: {len(header)}")
-        sections.append(f"- **Column names**: {', '.join(header) if header else 'None'}\n")
+        for row_num, row_values in enumerate(data_rows, start=1):
+            if not any(v.strip() for v in row_values):
+                continue
 
-        if preview_rows:
-            sections.append("#### Data preview\n")
-            sections.append(_render_markdown_table(header, preview_rows))
-            sections.append("\n")
+            row = dict(zip(header, row_values))
+            identifier = row_values[0] if row_values else f"row-{row_num}"
+            slug = _slugify(identifier) or f"row-{row_num}"
 
-        if total_rows > max_preview_rows:
-            sections.append(f"[Note: Showing first {max_preview_rows} of {total_rows} rows.]\n")
+            # Ensure unique filenames when slugs collide
+            candidate = output_dir / f"{slug}.md"
+            if candidate.exists():
+                slug = f"{slug}-{row_num}"
+                candidate = output_dir / f"{slug}.md"
+
+            content = _format_row_markdown(row, workbook_name, name, row_num)
+            candidate.write_text(content, encoding="utf-8")
+            output_paths.append(candidate)
 
     workbook.close()
-
-    if not sections:
-        raise ValueError(f"No non-empty sheets found in {file_path}")
-
-    tags = ["excel", workbook_slug]
-    if sheet_name:
-        tags.append(_slugify(sheet_name))
-
-    content_lines = [
-        "---",
-        f"title: {workbook_name}",
-        f"tags: [{', '.join(tags)}]",
-        "sources:",
-        f"  - \"{file_path.name}\"",
-        "---",
-        "",
-        "## Summary",
-        "",
-        f"This page summarizes the workbook `{file_path.name}` and its sheet data in markdown form.",
-        "",
-        "## Explanation",
-        "",
-        f"The workbook contains {len(sheet_names)} sheet(s): {', '.join(sheet_names)}.",
-        "",
-        *sections,
-        "## Related Pages",
-        "",
-        "- [[excel]] — Excel workbook and sheet summaries",
-        "",
-        "## Contradictions",
-        "",
-        "- None noted.",
-    ]
-
-    output_dir = wiki_dir / "excel"
-    output_dir.mkdir(parents=True, exist_ok=True)
-    output_path = output_dir / f"{workbook_slug}.md"
-    output_path.write_text("\n".join(content_lines).strip() + "\n", encoding="utf-8")
-
-    return output_path
+    return output_paths

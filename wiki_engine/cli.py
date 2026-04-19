@@ -62,7 +62,7 @@ def excel_to_markdown(
     output_dir: Optional[Path] = typer.Option(None, "--output-dir", help="Wiki output directory (default: WIKI_DIR)."),
     sheet: Optional[str] = typer.Option(None, "--sheet", help="Optional sheet name to export."),
 ) -> None:
-    """Convert an Excel workbook into a markdown wiki page."""
+    """Convert an Excel workbook into markdown wiki pages (one per row)."""
     if not file.exists():
         console.print(f"[red]Error:[/red] File not found: {file}")
         raise typer.Exit(1)
@@ -72,12 +72,17 @@ def excel_to_markdown(
 
     console.print(f"\n[bold]LLM Wiki — Excel to Markdown:[/bold] {file.resolve()}\n")
     try:
-        output_path = dump_excel_to_markdown(file, wiki_dir, sheet_name=sheet)
+        output_paths = dump_excel_to_markdown(file, wiki_dir, sheet_name=sheet)
     except Exception as e:
         console.print(f"[red]Unexpected error:[/red] {e}")
         raise typer.Exit(1)
 
-    console.print(f"\n[green]Done:[/green] wrote markdown to {output_path.resolve()}\n")
+    if output_paths:
+        console.print(f"\n[green]Done:[/green] wrote {len(output_paths)} markdown pages:")
+        for path in output_paths:
+            console.print(f"  {path.resolve()}")
+    else:
+        console.print(f"\n[yellow]Warning:[/yellow] No valid rows found in {file}\n")
 
 
 @app.command("csv-to-markdown")
