@@ -12,6 +12,15 @@ def write(page: WikiPage, wiki_dir: Path) -> Path:
     Otherwise falls back to wiki/{slug}.md.
     """
     target_dir = wiki_dir / page.category if page.category else wiki_dir
+    # Resolve to absolute paths and confirm target_dir is inside wiki_dir
+    try:
+        resolved_target = target_dir.resolve()
+        resolved_wiki = wiki_dir.resolve()
+        resolved_target.relative_to(resolved_wiki)
+    except ValueError:
+        raise ValueError(
+            f"Unsafe page category {page.category!r} would write outside wiki directory."
+        )
     target_dir.mkdir(parents=True, exist_ok=True)
     out_path = target_dir / f"{page.slug}.md"
 

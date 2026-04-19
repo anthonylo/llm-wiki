@@ -1,8 +1,45 @@
 from __future__ import annotations
 
+import ipaddress
 import re
+import socket
 import urllib.parse
 from pathlib import Path
+
+_ALLOWED_SCHEMES = {"https", "http"}
+_BLOCKED_HOSTS = {"localhost", "metadata.google.internal"}
+
+
+def _validate_url(url: str) -> None:
+    """Raise ValueError if the URL targets a private/internal network or uses a disallowed scheme."""
+    parsed = urllib.parse.urlparse(url)
+
+    if parsed.scheme not in _ALLOWED_SCHEMES:
+        raise ValueError(f"Disallowed URL scheme: {parsed.scheme!r}. Only http/https are permitted.")
+
+    hostname = parsed.hostname
+    if not hostname:
+        raise ValueError("URL has no hostname.")
+
+    if hostname.lower() in _BLOCKED_HOSTS:
+        raise ValueError(f"Requests to {hostname!r} are not permitted.")
+
+    # Resolve hostname to IP and block private/loopback/link-local ranges
+    try:
+        infos = socket.getaddrinfo(hostname, None)
+    except socket.gaierror as exc:
+        raise ValueError(f"Could not resolve hostname {hostname!r}: {exc}") from exc
+
+    for info in infos:
+        addr_str = info[4][0]
+        try:
+            addr = ipaddress.ip_address(addr_str)
+        except ValueError:
+            continue
+        if addr.is_private or addr.is_loopback or addr.is_link_local or addr.is_reserved:
+            raise ValueError(
+                f"URL resolves to a non-public IP address ({addr_str}) and is not permitted."
+            )
 
 
 def _url_to_filename(url: str) -> str:
@@ -31,6 +68,8 @@ def download_url_as_pdf(url: str, inbox_dir: Path) -> Path:
     Returns the Path of the written file.
     """
     import requests
+
+    _validate_url(url)
 
     inbox_dir.mkdir(parents=True, exist_ok=True)
     filename = _url_to_filename(url)
