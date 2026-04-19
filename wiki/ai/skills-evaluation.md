@@ -6,7 +6,7 @@ source: "2602.20867v1 — SoK: Agentic Skills — Beyond Tool Use in LLM Agents 
 
 ## Summary
 
-Evaluating agentic skills requires measuring five dimensions (correctness, robustness, efficiency, generalization, safety) through deterministic evaluation harnesses rather than human grading. The SkillsBench benchmark (86 tasks, 7,308 agent trajectories, 11 domains) provides the most direct evidence: curated skills raise agent pass rates by **+16.2 percentage points** while self-generated skills degrade performance by **−1.3pp**. Smaller models equipped with curated skills outperform larger models without them. Focused 2–3 module skills outperform comprehensive documentation. 16 of 84 tasks show performance degradation with skills, highlighting the importance of the applicability condition C.
+Evaluating agentic skills requires measuring five dimensions (correctness, robustness, efficiency, generalization, safety) through deterministic evaluation harnesses rather than human grading. The SkillsBench benchmark (86 jjj tasks, 7,308 agent trajectories, 11 domains) provides the most direct evidence: curated skills raise agent pass rates by **+16.2 percentage points** while self-generated skills degrade performance by **−1.3pp**. Smaller models equipped with curated skills outperform larger models without them. Focused 2–3 module skills outperform comprehensive documentation. 16 of 84 tasks show performance degradation with skills, highlighting the importance of the applicability condition C.
 
 ## Explanation
 

@@ -3,7 +3,7 @@ title: Apache Spark
 tags: [spark, distributed-computing, cluster-computing, rdd, mapreduce, zaharia, databricks, big-data]
 source: "Spark-Cluster-Computing-with-Working-Sets.pdf — Spark: Cluster Computing with Working Sets (Zaharia et al., 2010); The-Data-Engineers-Guide-to-Apache-Spark.pdf — The Data Engineer's Guide to Apache Spark (Databricks, 2017)"
 ---
-
+x
 ## Summary
 
 Apache Spark (Zaharia et al., 2010, UC Berkeley) is a cluster computing framework designed for applications that **reuse a working set of data across multiple parallel operations**. MapReduce and its variants process data through acyclic data flows that require reloading from disk on each pass — an expensive operation for iterative ML algorithms and interactive analytics. Spark introduces **Resilient Distributed Datasets (RDDs)**: read-only, partitioned collections that can be explicitly cached in memory and rebuilt via lineage if lost. Spark can outperform Hadoop by 10× on iterative machine learning workloads and supports interactive querying of a 39 GB dataset with sub-second response time (vs. tens-of-seconds latency for Hadoop).
