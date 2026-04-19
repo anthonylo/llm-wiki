@@ -2,6 +2,7 @@
 
 Knowledge base from ingested papers and handbooks. Last updated: 2026-04-18.
 
+
 ## Sources
 
 | File                                       | Title                                                                               | Year |
@@ -17,6 +18,10 @@ Knowledge base from ingested papers and handbooks. Last updated: 2026-04-18.
 | `2503.23278v3.pdf`                         | Model Context Protocol: Landscape, Security Threats, and Future Research Directions | 2025 |
 | `2510.18212v3.pdf`                         | A Definition of AGI                                                                 | 2025 |
 | `VikingMalt_BeerMaltHandbook_Online-1.pdf` | Viking Malt Beer & Malt Handbook                                                    | 2024 |
+| `2602.20867v1.pdf`                         | SoK: Agentic Skills — Beyond Tool Use in LLM Agents                                | 2025 |
+| `www-anthropic-com-...agent-ski.pdf`       | Equipping agents for the real world with Agent Skills (Anthropic Engineering)       | 2025 |
+| `Spark-Cluster-Computing-with-Working-Sets.pdf` | Spark: Cluster Computing with Working Sets                                     | 2010 |
+| `The-Data-Engineers-Guide-to-Apache-Spark.pdf` | The Data Engineer's Guide to Apache Spark (Databricks)                          | 2017 |
 
 ---
 
@@ -37,6 +42,10 @@ Which wiki pages were generated from each source document. Update this table whe
 | `2503.23278v3.pdf` | [[model-context-protocol]], [[mcp-security-threats]] |
 | `2510.18212v3.pdf` | [[agi-definition]], [[cognitive-capabilities-framework]], [[long-term-memory-in-ai]], [[capability-contortions]] |
 | `VikingMalt_BeerMaltHandbook_Online-1.pdf` | [[beer-types]], [[fermentation-types]], [[beer-brewing-process]], [[malt-production]], [[malt-types]], [[malt-characteristics]], [[malt-extracts]], [[hops]], [[water-chemistry]], [[yeast-and-fermentation-chemistry]], [[beer-recipe-design]], [[malt-flavor-chemistry]], [[pilsner]], [[lager]], [[marzen]], [[oktoberfest]], [[bock]], [[dark-lager]], [[ale]], [[stout]], [[porter]], [[wheat-beer]], [[hefeweizen]], [[pale-malt]], [[pale-ale-malt]], [[munich-malt]], [[vienna-malt]], [[wheat-malt]], [[caramel-malt]], [[chocolate-malt]], [[dark-malts]], [[roasted-malts]], [[black-malt]] |
+| `2602.20867v1.pdf` | [[agentic-skills]], [[skill-lifecycle]], [[skill-design-patterns]], [[skill-security-governance]], [[skills-evaluation]] |
+| `www-anthropic-com-...agent-ski.pdf` | [[anthropic-agent-skills]] |
+| `Spark-Cluster-Computing-with-Working-Sets.pdf` | [[apache-spark]], [[resilient-distributed-datasets]] |
+| `The-Data-Engineers-Guide-to-Apache-Spark.pdf` | [[apache-spark]], [[spark-structured-apis]] |
 
 ---
 
@@ -69,6 +78,19 @@ Which wiki pages were generated from each source document. Update this table whe
 
 ### Reliability & Limitations (`wiki/ai/`)
 - [[hallucination]] — Types, causes, detection, mitigation
+
+### Apache Spark & Distributed Data (`wiki/data/`)
+- [[apache-spark]] — Spark architecture, MapReduce limitations, RDDs, performance: 10× over Hadoop on iterative ML
+- [[resilient-distributed-datasets]] — RDD properties, lineage fault tolerance, caching, broadcast variables, accumulators
+- [[spark-structured-apis]] — DataFrames, SQL, lazy evaluation, DAG execution, narrow vs wide transformations
+
+### Agentic Skills (`wiki/ai/`)
+- [[agentic-skills]] — Formal definition S=(C,π,T,R), skills vs tools/plans/memory, skills as procedural memory, SkillsBench evidence
+- [[skill-lifecycle]] — 7-stage lifecycle: discovery, practice, distillation, storage, retrieval, execution, evaluation
+- [[skill-design-patterns]] — 7 design patterns (P1–P7), representation×scope taxonomy, pattern trade-offs
+- [[skill-security-governance]] — 6 threat categories, 4-tier trust model, ClawHavoc supply-chain case study
+- [[skills-evaluation]] — SkillsBench benchmark: +16.2pp curated, −1.3pp self-generated; domain variance
+- [[anthropic-agent-skills]] — SKILL.md format, progressive disclosure, code execution, open standard
 
 ### Model Context Protocol (`wiki/ai/`)
 - [[model-context-protocol]] — MCP architecture: Host/Client/Server, tool primitives
@@ -168,3 +190,12 @@ See `BROKENLINK.md` for links that appeared in pages but could not be resolved t
 
 ### Foundation Model Risks
 [[foundation-models]] (Bommasani) warns that as all applications converge on a few models, failures homogenize. [[hallucination]], [[mcp-security-threats]], and the alignment tax ([[instructgpt]]) are concrete failure modes propagated at scale.
+
+### Skills as Procedural Memory Layer
+[[agentic-skills]] adds a persistent procedural memory layer on top of [[foundation-models]]. Where [[in-context-learning]] provides ad-hoc knowledge injection per session, skills persist across sessions. Where [[rlhf-and-alignment]] shapes what agents are willing to do, skills shape how they do it. [[skill-security-governance]] shows that this layer introduces new supply-chain risks orthogonal to existing alignment concerns.
+
+### Skills vs Scale
+[[skills-evaluation]] (SkillsBench) shows Claude Haiku 4.5 with curated skills (27.7%) outperforms Claude Opus 4.5 without skills (22.0%). This mirrors the [[instructgpt]] finding that a 1.3B aligned model outperforms 175B GPT-3: targeted procedural structure dominates raw scale for specific task classes.
+
+### MCP + Skills: Complementary Layers
+[[model-context-protocol]] handles tool integration (what external capabilities are available); [[anthropic-agent-skills]] handles workflow knowledge (how to use those tools in multi-step procedures). They are architecturally complementary: a skill invokes MCP tools; MCP exposes what those tools can do.

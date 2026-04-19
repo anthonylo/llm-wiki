@@ -1,5 +1,36 @@
 # Changelog
 
+## 2026-04-18 — Apache Spark: Original Paper + Data Engineer's Guide
+
+### Added (Sources)
+- `processed/data/Spark-Cluster-Computing-with-Working-Sets.pdf` — Spark: Cluster Computing with Working Sets (Zaharia et al., 2010, UC Berkeley)
+- `processed/data/The-Data-Engineers-Guide-to-Apache-Spark.pdf` — The Data Engineer's Guide to Apache Spark (Databricks, 2017)
+
+### Added (Pages)
+- `wiki/data/apache-spark.md` — Spark overview: MapReduce limitations, architecture (driver/executor/cluster manager), RDDs, shared variables, performance results (10× Hadoop on iterative ML, sub-second interactive queries)
+- `wiki/data/resilient-distributed-datasets.md` — RDD formal properties (getPartitions/getIterator/getPreferredLocations), lineage-based fault tolerance vs checkpointing, caching semantics, broadcast variables (+2.8× for ALS), accumulators, Scala closure serialization implementation
+- `wiki/data/spark-structured-apis.md` — Structured API hierarchy, DataFrames vs RDDs, transformations (narrow/wide/shuffle), lazy evaluation + DAG execution, predicate pushdown, Catalyst optimizer, SparkSession, Structured Streaming
+
+### Updated
+- `wiki/INDEX.md` — Added Spark section, source entries, Source→Pages Map rows
+
+## 2026-04-18 — Agentic Skills: SoK Paper + Anthropic Engineering Blog
+
+### Added (Sources)
+- `processed/ai/2602.20867v1.pdf` — SoK: Agentic Skills — Beyond Tool Use in LLM Agents (Jiang et al., 2025)
+- `processed/ai/www-anthropic-com-...agent-ski.pdf` — Equipping agents for the real world with Agent Skills (Anthropic Engineering, 2025)
+
+### Added (Pages)
+- `wiki/ai/agentic-skills.md` — Formal definition S=(C,π,T,R), skills vs tools/plans/memory/prompt templates, skills as procedural memory, SkillsBench compute equalizer evidence
+- `wiki/ai/skill-lifecycle.md` — 7-stage lifecycle model (discovery, practice/refinement, distillation, storage, retrieval/composition, execution, evaluation/update), feedback loops, representative systems per stage
+- `wiki/ai/skill-design-patterns.md` — 7 design patterns (P1 metadata-driven through P7 marketplace), representation×scope taxonomy, pattern trade-off table, ClaudeCode as P1+P3+P5+P7 exemplar
+- `wiki/ai/skill-security-governance.md` — 6 threat categories, 4-tier trust model, sandboxing, skill supply-chain governance, ClawHavoc case study (1,200 malicious skills, 36.8% infection rate, AMOS credential stealer), skill-native auditing vs VirusTotal
+- `wiki/ai/skills-evaluation.md` — 5 evaluation dimensions, deterministic harnesses, SkillsBench results (+16.2pp curated, −1.3pp self-generated), domain variance, skills as compute equalizers, negative-delta tasks
+- `wiki/ai/anthropic-agent-skills.md` — SKILL.md format, 3-level progressive disclosure, code execution, development best practices, security guidance, MCP relationship, open standard (Dec 2025)
+
+### Updated
+- `wiki/INDEX.md` — Added Agentic Skills section, source entries, Source→Pages Map rows, three new cross-paper themes
+
 ## 2026-04-18 — Foundational AI Papers: Attention, BERT, GPT-3, Foundation Models, InstructGPT
 
 ### Added (Sources)
