@@ -5,12 +5,19 @@ from pathlib import Path
 from .base import IngestAdapter, SourceSection
 
 MAX_ROWS = 200
+MAX_FILE_BYTES = 50 * 1024 * 1024  # 50 MB
 
 
 class CSVAdapter(IngestAdapter):
     """Adapter for CSV and TSV files."""
 
     def parse(self) -> list[SourceSection]:
+        size = self.file_path.stat().st_size
+        if size > MAX_FILE_BYTES:
+            raise ValueError(
+                f"{self.file_path.name} is {size / 1_048_576:.1f} MB, "
+                f"exceeding the {MAX_FILE_BYTES // 1_048_576} MB limit."
+            )
         raw = self.file_path.read_bytes()
         text = raw.decode("utf-8-sig")  # handle BOM
 

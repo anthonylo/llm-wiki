@@ -4,6 +4,7 @@ from pathlib import Path
 from .base import IngestAdapter, SourceSection
 
 MAX_ROWS = 200
+MAX_FILE_BYTES = 50 * 1024 * 1024  # 50 MB
 
 
 def _format_value(v, max_rows: int = MAX_ROWS) -> tuple[str, int]:
@@ -37,6 +38,12 @@ class JSONAdapter(IngestAdapter):
     """Adapter for JSON files."""
 
     def parse(self) -> list[SourceSection]:
+        size = self.file_path.stat().st_size
+        if size > MAX_FILE_BYTES:
+            raise ValueError(
+                f"{self.file_path.name} is {size / 1_048_576:.1f} MB, "
+                f"exceeding the {MAX_FILE_BYTES // 1_048_576} MB limit."
+            )
         data = json.loads(self.file_path.read_text(encoding="utf-8"))
         sections: list[SourceSection] = []
 

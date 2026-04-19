@@ -20,6 +20,8 @@ from .base import IngestAdapter, SourceSection
 
 MAX_PAGES_PER_CHUNK = 15  # fallback chunk size
 MAX_CHARS_PER_SECTION = 16_000  # hard cap before sending to LLM (~4K tokens)
+MAX_PAGES = 500  # reject PDFs larger than this to prevent CPU/memory exhaustion
+MAX_FILE_BYTES = 100 * 1024 * 1024  # 100 MB
 
 # Match lines that look like section headings:
 #   "1.  Introduction", "2.3 Related Work", "ABSTRACT", "CONCLUSION"
@@ -51,9 +53,19 @@ def _table_to_markdown(table: list[list]) -> str:
 
 def _extract_pages(pdf_path: Path) -> tuple[list[str], int]:
     """Return (list_of_page_texts, total_pages). Tables are rendered as MD inline."""
+    size = pdf_path.stat().st_size
+    if size > MAX_FILE_BYTES:
+        raise ValueError(
+            f"{pdf_path.name} is {size / 1_048_576:.1f} MB, "
+            f"exceeding the {MAX_FILE_BYTES // 1_048_576} MB limit."
+        )
     page_texts: list[str] = []
     with pdfplumber.open(pdf_path) as pdf:
         total = len(pdf.pages)
+        if total > MAX_PAGES:
+            raise ValueError(
+                f"{pdf_path.name} has {total} pages, exceeding the {MAX_PAGES}-page limit."
+            )
         for page in pdf.pages:
             # Extract tables first so we can replace them inline
             tables = page.extract_tables()
